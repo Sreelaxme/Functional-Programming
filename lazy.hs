@@ -17,7 +17,7 @@ _sieve :: [Int] -> [Int]
 
 _sieve (x:xs) = x : _sieve (_strikeOff x xs)
 
-_primes = _sieve [2..100]
+_primes = _sieve [2..]
 
 _strikeOff x xs = _remove (_multiples x) xs
 

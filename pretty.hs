@@ -9,7 +9,7 @@ zeros = 0:zeros
 
 duplicate string n = concat $ replicate n string 
 padTable ::[Int] -> Table->Table
-padTable padding Table = map (padRows padding) Table
+padTable padding  = map (padRows padding) 
 
 padRows :: [Int] -> Row -> Row
 padRows  = _zipWith align 
@@ -24,4 +24,14 @@ findPadding :: Table -> [Int]
 findPadding = foldr combf zeros
 
 combf :: Row -> [Int] -> [Int]
-combf r = _zipWith max (findRowPadding r )
+combf = _zipWith max (findRowPadding r)
+
+------1 pass
+-- helper :: [Int]->Table->(Table,[Int])
+-- helper (p:ps) table = (pTable,padding)
+--                 where 
+--                     pTable = 
+
+-- alignTable table = paddedTable
+--         where 
+--             (paddedTable,pad) = helper pad table

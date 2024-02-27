@@ -70,7 +70,7 @@ length [] = 0
 length (x:xs) = 1+Main.length xs
 
 
-wordLength str = Main.length (Main.words str)
+wordLength str = Main.length (Main.words str)l
 
 fst :: (Int,Int) -> Int
 fst (a,b) = a 
@@ -124,3 +124,7 @@ ones = 1:ones
 
 ---------------------------------------------------------------
 
+  -- words   :: String -> [String]
+
+  -- unwords ["x", "y", "z"]
+  --    "x y z"
