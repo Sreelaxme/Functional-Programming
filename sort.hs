@@ -24,3 +24,22 @@ sort (x:xs) =
     let smallerSorted = sort [a | a <- xs, a <= x]  -- Sort elements smaller than or equal to 'x'
         biggerSorted = sort [a | a <- xs, a > x]    -- Sort elements bigger than 'x'
     in  smallerSorted ++ [x] ++ biggerSorted        -- Concatenate the sorted smaller elements, 'x', and the sorted bigger elements
+
+mergeSort :: Ord a => [a] -> [a]
+mergeSort [] = []
+mergeSort [x] = [x] 
+mergeSort (xs) = 
+    let (left, right) = splitAt (length xs `div` 2) xs
+        sortedLeft = mergeSort left
+        sortedRight = mergeSort right
+    in merge sortedLeft sortedRight
+
+
+merge :: Ord a => [a] -> [a] -> [a]
+merge [] ys = ys
+merge xs [] = xs
+merge (x:xs) (y:ys) | x <= y = x: merge xs (y:ys)
+                    | otherwise = y : merge (x:xs) ys
+
+
+print a = show a
