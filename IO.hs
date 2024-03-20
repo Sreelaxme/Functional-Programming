@@ -7,6 +7,12 @@
 -- Class Functors t where
 --     fmap :: (a -> b) -> t a -> t b 
 
+--FUNCTOR/APPLICATIVE/MONAD instances for IO
+
+instance Functor IO where
+    fmap f x = x >>= (pure . f)
+
+
 getIntLine :: IO Int
 getIntLine = fmap read getLine
 
