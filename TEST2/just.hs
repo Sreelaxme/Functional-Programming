@@ -8,3 +8,5 @@ either =
         let s = Left "foo" :: Either String Int
             n = Right 3 :: Either String Int
         in fmap (*2) s
+
+

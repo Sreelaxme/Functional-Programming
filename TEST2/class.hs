@@ -47,3 +47,6 @@ instance Equal Day where
 instance Ord Day where 
     compare x y = compare (fromEnum x) (fromEnum y)
 
+
+
+
