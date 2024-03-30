@@ -6,7 +6,10 @@ data Exp v = Var v
 instance Functor Exp where 
     -- fmap :: (a->b) -> Exp a -> Exp b
     fmap vT (Var x) = Var (vT x)
-    fmap vT (Plus x y ) = 
+    fmap vT (Plus e1 e2) = Plus (fmap vT e1) (fmap vt e2) 
+    fmap vT (Mul e1 e2) = Mul (fmap vT e1) (fmap vt e2) 
+    fmap vT Const t = Const t 
+
 -- join :: Monad m => m (m a) -> m a
 
 -- join mma = do ma <- mma
