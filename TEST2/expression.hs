@@ -21,3 +21,7 @@ join (Const x) = Const x
 join (Var x)  = x 
 join (Plus e1 e2) = Plus (join e1) (join e2)
 join (Mul e1 e2) = Mul (join e1) (join e2)
+
+-- (>>=) in terms of join
+f :: v -> Exp v
+(>>=) ev  f = join ( fmap f ev) 
