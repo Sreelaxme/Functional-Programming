@@ -54,3 +54,8 @@ instance Applicative (Result err) where
     -- <*> :: Result (a0 -> b0) -> Result err a0 -> Result err b0
     Err e <*> _ = Err e
     Ok f <*> r = fmap f r
+
+main = do 
+        putStrLn "Give int"
+        x <- getInt 
+        print (x+1)

@@ -9,8 +9,8 @@
 
 --FUNCTOR/APPLICATIVE/MONAD instances for IO
 
-instance Functor IO where
-    fmap f x = x >>= (pure . f)
+-- instance Functor IO where
+--     fmap f x = x >>= (pure . f)
 
 
 getIntLine :: IO Int
@@ -67,3 +67,20 @@ sum3 = fmap add3 getIntLine <*> getIntLine <*> getIntLine
 -- f <$> t x = fmap f (t x) 
 -- ($) :: (a -> b) -> a -> b
 
+-------------------------------------------------------
+getInt :: IO Int
+getInt = read <$> getLine 
+-- readIntList ::  IO [Int]
+readInt :: Int -> IO [Int] -- Add an argument for the number of integers to read
+readInt n | n <= 0    = pure []
+          | otherwise = do 
+                          x <- getInt
+                          xs <- readInt (n-1)
+                          pure (x:xs)
+
+_sum :: Int
+       
+_sum =  do  n  <- getInt
+            xs <- readInt n
+            s <- pure $ _sum xs
+            print s 

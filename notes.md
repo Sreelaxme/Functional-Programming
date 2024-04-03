@@ -29,9 +29,7 @@ pure f <*> x = <$> f x
 ```
 ### Newtype
 Newtype is evaluated after definiton itself
-```
-read :: Read a => String -> a
-```
+
 ## Expressions
 ```Haskell
 
@@ -82,4 +80,16 @@ join (Plus e1 e2) = plus (join e1) (join e2)
 join Mul e1 e2 = Mul (join e1) (join e2)
 ````
 
-Cont 5 is of type Exp Exp Int 
+ - Cont 5 is of type Exp Exp Int 
+
+### Show 
+```
+class Show a => a -> IO()
+    show:: a -> String
+
+putStr:: String -> IO()
+
+print = putStr . show 
+
+
+```

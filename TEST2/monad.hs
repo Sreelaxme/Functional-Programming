@@ -20,7 +20,7 @@ instance Monad Either a where
 -- data Tree a = Empty | Node (Tree a ) a (Tree a)
 instance Monad Tree where 
     -- return :: a -> Tree a
-    return x = Node Empty x Empty
+    return x = Node Empty x Empty -- wrong
     -- (>>=):: Tree a -> (a -> Tree b) -> Tree b
     (>>=) Empty _ = Empty
     Node left x right >>= f = Node (left >>= f) (f a) (right >>= f)
