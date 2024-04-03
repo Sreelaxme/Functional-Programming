@@ -1,4 +1,4 @@
--- writing Functors so that no conflict occurs with the GHC.Base
+--hehe -- writing Functors so that no conflict occurs with the GHC.Base
 
 -- Refer GHC.Base documentation
 class Functors t where
@@ -51,6 +51,8 @@ instance Functors IO where
     fmap f ioAction = do
         result <- ioAction
         return (f result)
+instance  Functor IO where
+   fmap f x = x >>= (pure . f)
 
 -- instance Functor T where
 --   fmap f x = do
@@ -63,3 +65,11 @@ instance Functors IO where
 --     f' <- f
 --     x' <- x
 --     return (f' x')
+
+
+data Person a = Person String Int a | NotPerson
+
+instance Functor Person where 
+    -- fmap :: (a->b) -> Persom a -> Person b
+    fmap _ NotPerson = NotPerson
+    fmap f (Person name age x) =  Person name age (fx)

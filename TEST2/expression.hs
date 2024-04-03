@@ -14,7 +14,10 @@ instance Functor Exp where
 
 -- join mma = do ma <- mma
 --                 ma
+                
+join mma = mma >>= (\ma -> ma)
 
+ma >> mb = ma >>= (_ -> mb)
 
 join :: Exp (Exp v) -> Exp v
 join (Const x) = Const x

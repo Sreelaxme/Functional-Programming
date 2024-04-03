@@ -1,3 +1,9 @@
+
+-- It takes a 1 argument function and applies it inside the "data
+-- structure".
+
+-- Suppose I have a function ~f : a -> b -> c~. How can I apply this
+-- on values of type ~t a~ , ~t b~
 class Functor t => Applicative t where
     pure a :: a -> t a 
     (<*>) :: t (a -> b) -> t a -> t b
@@ -8,6 +14,8 @@ class Functor t => Applicative t where
 instance Applicative ZipList where 
     -- (<*>) :: ZipList (a->b) -> ZipList a -> ZipList b
     (<*>) (ZipList fs) (ZipList xs) = ZipList (zipWith ($) fs xs)
+    pure x = ZipList xs 
+            where xs = x:xs
 
 -- instance Applicative ZipList where
 --     pure x = ZipList (repeat x)
@@ -30,8 +38,9 @@ instance Applicative (Either a) where
 instance Applicative Tree where
     -- pure :: a -> Tree a
     -- (<*>) :: Tree (a->b) -> Tree a -> Tree b
-    pure x = Node Empty x Empty
+    pure x = infa where infa = Node infa x infa
     (<*>) (Node f1 f f2) (Node l x r) = Node (f1 <*> l) (f x) (f2 <*> r)
+    (<*>) _ _ = Empty
 
 -- all possible combinations
 instance Applicative [] where
@@ -68,3 +77,5 @@ eval (DIV e1 e2) = case eval e1 of
                                     Just y -> if y/=0 then Just (x/y) else Nothing
                                     Nothing -> Nothing
                         Nothing -> Nothing  
+
+eval (Plus e1 e2) = (+) ($) (eval e1) <*> (eval e2)

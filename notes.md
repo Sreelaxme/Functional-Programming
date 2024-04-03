@@ -1,5 +1,42 @@
+## Type classes
+- Checking equality between two function is essentially halting problem
+- Type class mechanism is a way to restrict parametric polymorphism to a subclass of types.
+
+- The compiler infers the constraints while type checking the
+   program.  However as a good practice it is recommended that the top level functions be given explicit types.
+
+- Eq should give an equivalence relatioship
+- Total order?
+
+## FUNCTORS 
+### Properties of map
+```
+map id = id 
+map (f . g) = map f . map g 
+```
+
+```
+getLine :: IO String
+read :: Read a => String -> a
+```
+### APPLICATIVE
+- LAW
+```
+fmap f x = pure f <*> x 
+```
+```
+pure f <*> x = <$> f x 
+```
+### Newtype
+Newtype is evaluated after definiton itself
+```
+read :: Read a => String -> a
+```
 ## Expressions
 ```Haskell
+
+eval (Plus e1 e2) = (+) ($) (eval e1) <*> (eval e2)
+
 data Exp v = Var v
             | Plus (Exp v) (Exp v)
             | Mul (Exp v ) (Exp v)

@@ -15,3 +15,12 @@ primeCheck = do
                 inp <- get
                 print $ isPrime inp
                 primeCheck
+
+-- - 
+--  Give an IO action that will read two integers and compute their sum
+--  (make use of getInt)
+
+getInt :: IO Int 
+getInt = fmap read getLine
+
+foo = (+) <$> getInt <*> getInt 

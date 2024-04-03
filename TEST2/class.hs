@@ -1,5 +1,9 @@
 class Equal a where 
-    eq ::a -> a-> Bool
+    == :: a -> a -> Bool
+    /= :: a -> a -> Bool
+
+    /= x y = not $ x == y -- default implementation
+    -- coz this is there we need not write /= every time we write instance
 
 instance Equal Bool where
     eq True True    = True
@@ -25,7 +29,10 @@ instance (Equal a, Equal b) => Equal (a,b) where
 --     eq (HString h1 s1) (HString h2 s2) = (eq h1 h2) && (eq s1 s2)
 
 -----------------------------------------------------------------
-
+instance Ord a => Ord [a] where 
+    (<=) (x:xs) (y:ys)  | x== y  = xs <= ys
+                        | x <= y = True
+                        | otherwise = False
 
 
 -- The Bounded typeclass in Haskell is used to define types that have a lower and upper bound. It provides two functions:
@@ -48,5 +55,25 @@ instance Ord Day where
     compare x y = compare (fromEnum x) (fromEnum y)
 
 
+data DayOfWeek = Sun
+                | Mon
+                | Tue
+                | Wed
+                |Thu
+                | Fri
+                | Sat
+enum :: DayOfWeek -> Int
+enum Sun = 0
+enum Mon = 1
+enum Tue = 2
+enum Wed = 3
+enum Thu = 4
+enum Fri = 5
+enum Sat = 6
+
+instance Eq DayOfWeek where 
+    (==) x y = (enum x) == (enum y)
+instance Ord DayOfWeek where 
+    (<=) x y = (enum x) <= (enum y)
 
 
