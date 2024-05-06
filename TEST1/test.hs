@@ -30,3 +30,12 @@ _create (minN,num) = minN : _create (minN,(num-1))
 -- tri = 0:1:2:seq
 --         where 
 --             seq = zipWith (\x y z -> x+y+z) tri (tl tri) (tl (tl tri))
+
+data TBool = TRUE | FALSE | UNKNOWN deriving Show 
+
+tAnd :: TBool -> TBool -> TBool
+
+tAnd TRUE TRUE = TRUE 
+tAnd TRUE UNKNOWN = UNKNOWN
+tAnd UNKNOWN TRUE = UNKNOWN
+tAnd _ _ = FALSE
