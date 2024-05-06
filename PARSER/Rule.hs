@@ -5,7 +5,7 @@ import Parser
 data S = RuleA Char S Char
         | RuleB Char S Char
         | RuleC 
-        -- deriving Show
+        deriving Show
 
 -- parseRuleA = RuleA <$> char 'a' <*> parseRuleA <*> char 'a'
 -- parseRuleB= RuleB <$> char 'b' <*> parseRuleB <*> char 'b'
@@ -18,14 +18,16 @@ sParse = parseRuleA <|> parseRuleB <|> parseRuleC
     parseRuleB = RuleB <$> char 'b' <*> sParse <*> char 'b'
     parseRuleC = pure RuleC
 
-instance Show a => Show (Result a) where
-  show (Ok x _) = "Ok " ++ show x
-  show Err = "Err"
+-- instance Show a => Show (Result a) where
+--   show (Ok x _) = "Ok " ++ show x
+--   show Err = "Err"
 
-instance Show S where
-  show (RuleA c1 s c2) = "RuleA " ++ [c1] ++ " (" ++ show s ++ ") " ++ [c2]
-  show (RuleB c1 s c2) = "RuleB " ++ [c1] ++ " (" ++ show s ++ ") " ++ [c2]
-  show RuleC = "RuleC"
+-- instance Show S where
+--   show (RuleA c1 s c2) = "RuleA " ++ [c1] ++ " (" ++ show s ++ ") " ++ [c2]
+--   show (RuleB c1 s c2) = "RuleB " ++ [c1] ++ " (" ++ show s ++ ") " ++ [c2]
+--   show RuleC = "RuleC" 
+
+
 -- Define a function to test the parser
 testParser :: String -> IO ()
 testParser input = case runParser sParse input of

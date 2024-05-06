@@ -7,6 +7,8 @@ module Parser where
 import Data.Char
 -- import Text.Parsec
 -- newtype Result a = Maybe(a,String)
+data Result a  = Ok a String
+            | Err 
 
 newtype Parser a = Parser (String -> Result a )
 
@@ -38,9 +40,9 @@ instance Applicative Parser where
 instance Monad Parser where 
     -- (>>=) :: Parser a -> (a -> Parser b) -> Parser b
     (>>=) pa pbf = Parser fb 
-                where fb input = case runParser pa of 
-                    Err -> Err 
-                    Ok x rest -> runParser (pbf x) rest 
+                where fb input = case runParser pa input of 
+                                    Err -> Err 
+                                    Ok x rest -> runParser (pbf x) rest 
 
 -- Characeter parser 
 satisfy :: (Char -> Bool) -> Parser Char
@@ -72,9 +74,7 @@ p1 <|> p2 = Parser fn
                             Err -> runParser p2 inp
                             x -> x 
 
-data Result a  = Ok a String
-            | Err 
-instance Show a => Show (Result a) where
+instance (Show a) => Show (Result a) where
   show (Ok x _) = "Ok " ++ show x
   show Err = "Err"
 instance Functor Result where 
